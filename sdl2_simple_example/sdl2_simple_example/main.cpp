@@ -52,7 +52,7 @@ int main(int argc, char** argv) {
     ModelLoader modelLoader;
     Mesh mesh;
 
-    if (modelLoader.loadModel("Assets/cube.fbx", mesh)) {
+    if (modelLoader.loadModel("Assets/BakerHouse.fbx", mesh)) {
         std::cout << "Modelo cargado exitosamente y datos impresos en consola." << std::endl;
     }
     else {
