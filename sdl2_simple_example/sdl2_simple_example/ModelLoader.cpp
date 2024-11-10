@@ -47,5 +47,5 @@ void ModelLoader::processMesh(aiMesh* mesh, Mesh& outMesh) {
         std::cout << std::endl;
     }
 
-    outMesh.loadFromAssimpMesh(mesh);  // Mantén esta línea para procesar los datos del mesh.
+    outMesh.loadFromAssimpMesh(mesh);
 }
