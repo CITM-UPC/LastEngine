@@ -19,15 +19,15 @@
     <Filter Include="Header Files\Components">
       <UniqueIdentifier>{1139f5c3-5aa6-4320-bfb1-3837bb735835}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\UI">
+      <UniqueIdentifier>{1a89428c-eda2-4a63-8cb9-27918fc0a1c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\CORE">
+      <UniqueIdentifier>{1bdbc666-b2ce-4ab2-b93d-6519d5c0bdbe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MyWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Components\Mesh.cpp">
@@ -47,6 +47,12 @@
     </ClCompile>
     <ClCompile Include="Components\Component.cpp">
       <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files\CORE</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelLoader.cpp">
+      <Filter>Source Files\CORE</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
