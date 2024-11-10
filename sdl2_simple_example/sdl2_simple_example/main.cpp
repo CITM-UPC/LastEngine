@@ -4,6 +4,11 @@
 #include <exception>
 #include <glm/glm.hpp>
 #include "MyWindow.h"
+#include "ModelLoader.h"
+#include "Render.h"
+#include "imgui_impl_sdl2.h"
+#include <iostream>
+
 using namespace std;
 
 using hrclock = chrono::high_resolution_clock;
@@ -16,132 +21,53 @@ static const unsigned int FPS = 60;
 static const auto FRAME_DT = 1.0s / FPS;
 
 static void init_openGL() {
-	glewInit();
-	if (!GLEW_VERSION_3_0) throw exception("OpenGL 3.0 API is not available.");
-	glEnable(GL_DEPTH_TEST);
-	glClearColor(0.5, 0.5, 0.5, 1.0);
+    glewInit();
+    if (!GLEW_VERSION_3_0) throw exception("OpenGL 3.0 API is not available.");
+    glEnable(GL_DEPTH_TEST);
+    glClearColor(0.5, 0.5, 0.5, 1.0);
 }
-
-static void draw_triangle(const u8vec4& color, const vec3& center, double size) {
-	glColor4ub(color.r, color.g, color.b, color.a);
-	glBegin(GL_TRIANGLES);
-	glVertex3d(center.x, center.y + size, center.z);
-	glVertex3d(center.x - size, center.y - size, center.z);
-	glVertex3d(center.x + size, center.y - size, center.z);
-	glEnd();
-}
-
-static void draw_cube() {
-	glPushMatrix();
-
-	// Aplicar la rotació contínua
-	glRotatef(33.0f, 1.0f, 1.0f, 0.0f);
-
-	glBegin(GL_TRIANGLES);
-
-	// Cara frontal (z positiva)
-	glColor3ub(255, 0, 0);
-	glVertex3f(-0.5f, -0.5f, 0.5f);
-	glVertex3f(0.5f, -0.5f, 0.5f);
-	glVertex3f(0.5f, 0.5f, 0.5f);
-
-	glVertex3f(-0.5f, -0.5f, 0.5f);
-	glVertex3f(0.5f, 0.5f, 0.5f);
-	glVertex3f(-0.5f, 0.5f, 0.5f);
-
-	// Cara atras (z negativa)
-	glColor3ub(0, 255, 0);
-	glVertex3f(-0.5f, -0.5f, -0.5f);
-	glVertex3f(-0.5f, 0.5f, -0.5f);
-	glVertex3f(0.5f, 0.5f, -0.5f);
-
-	glVertex3f(-0.5f, -0.5f, -0.5f);
-	glVertex3f(0.5f, 0.5f, -0.5f);
-	glVertex3f(0.5f, -0.5f, -0.5f);
-
-	// Cara izquierda (x negativa)
-	glColor3ub(0, 0, 255);
-	glVertex3f(-0.5f, -0.5f, -0.5f);
-	glVertex3f(-0.5f, -0.5f, 0.5f);
-	glVertex3f(-0.5f, 0.5f, 0.5f);
-
-	glVertex3f(-0.5f, -0.5f, -0.5f);
-	glVertex3f(-0.5f, 0.5f, 0.5f);
-	glVertex3f(-0.5f, 0.5f, -0.5f);
-
-	// Cara derecha (x positiva)
-	glColor3ub(255, 255, 0);
-	glVertex3f(0.5f, -0.5f, -0.5f);
-	glVertex3f(0.5f, 0.5f, -0.5f);
-	glVertex3f(0.5f, 0.5f, 0.5f);
-
-	glVertex3f(0.5f, -0.5f, -0.5f);
-	glVertex3f(0.5f, 0.5f, 0.5f);
-	glVertex3f(0.5f, -0.5f, 0.5f);
-
-	// Cara superior (y positiva)
-	glColor3ub(255, 0, 255);
-	glVertex3f(-0.5f, 0.5f, -0.5f);
-	glVertex3f(-0.5f, 0.5f, 0.5f);
-	glVertex3f(0.5f, 0.5f, 0.5f);
-
-	glVertex3f(-0.5f, 0.5f, -0.5f);
-	glVertex3f(0.5f, 0.5f, 0.5f);
-	glVertex3f(0.5f, 0.5f, -0.5f);
-
-	// Cara inferior (y negativa)
-	glColor3ub(0, 255, 255);
-	glVertex3f(-0.5f, -0.5f, -0.5f);
-	glVertex3f(0.5f, -0.5f, -0.5f);
-	glVertex3f(0.5f, -0.5f, 0.5f);
-
-	glVertex3f(-0.5f, -0.5f, -0.5f);
-	glVertex3f(0.5f, -0.5f, 0.5f);
-	glVertex3f(-0.5f, -0.5f, 0.5f);
-
-	glEnd();
-
-	glPopMatrix();
-}
-
-static void display_func() {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	draw_cube();
-	glRotatef(0.1f, 1.0f, 1.0f, 0.0f);
-}
-	
-#include "imgui_impl_sdl2.h"
 
 static bool processEvents() {
-	SDL_Event event;
-	while (SDL_PollEvent(&event))
-	{
-		switch (event.type) {
-		case SDL_QUIT:
-			return false;
-			break;
-		default:
-			ImGui_ImplSDL2_ProcessEvent(&event);
-			break;
-		}
-	}
-
-	return true;
-
+    SDL_Event event;
+    while (SDL_PollEvent(&event)) {
+        switch (event.type) {
+        case SDL_QUIT:
+            return false;
+        default:
+            ImGui_ImplSDL2_ProcessEvent(&event);
+            break;
+        }
+    }
+    return true;
 }
+
 int main(int argc, char** argv) {
-	MyWindow window("SDL2 Simple Example", WINDOW_SIZE.x, WINDOW_SIZE.y);
+    MyWindow window("SDL2 Simple Example", WINDOW_SIZE.x, WINDOW_SIZE.y);
+    init_openGL();
 
-	init_openGL();
+    Render renderer;
+    renderer.init();
+    renderer.setupCamera();
 
-	while(window.processEvents() && window.isOpen()) {
-		const auto t0 = hrclock::now();
-		display_func();
-		window.swapBuffers();
-		const auto t1 = hrclock::now();
-		const auto dt = t1 - t0;
-		if(dt<FRAME_DT) this_thread::sleep_for(FRAME_DT - dt);
-	}
+    ModelLoader modelLoader;
+    Mesh mesh;
 
-	return 0;
+    if (modelLoader.loadModel("Assets/cube.fbx", mesh)) {
+        std::cout << "Modelo cargado exitosamente y datos impresos en consola." << std::endl;
+    }
+    else {
+        std::cerr << "Error cargando el modelo." << std::endl;
+    }
+
+    while (window.processEvents() && window.isOpen()) {
+        const auto t0 = hrclock::now();
+        renderer.clearBuffers();
+        renderer.drawMesh(mesh);
+        window.swapBuffers();
+        const auto t1 = hrclock::now();
+        const auto dt = t1 - t0;
+        if (dt < FRAME_DT) this_thread::sleep_for(FRAME_DT - dt);
+    }
+
+    return 0;
 }
