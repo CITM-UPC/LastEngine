@@ -1,4 +1,4 @@
-#include <exception>
+﻿#include <exception>
 #include <SDL2/SDL_video.h>
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_opengl.h>
@@ -6,6 +6,7 @@
 #include "imgui_impl_sdl2.h"
 #include "imgui_impl_opengl3.h"
 #include <SDL2/SDL.h>
+#include <glm/glm.hpp>
 using namespace std;
 
 MyWindow::MyWindow(const char* title, unsigned short width, unsigned short height){
@@ -82,4 +83,3 @@ bool MyWindow::processEvents(IEventProcessor* event_processor) {
     }
     return true;
 }
-
