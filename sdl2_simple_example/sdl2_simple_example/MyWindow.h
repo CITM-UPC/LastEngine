@@ -1,10 +1,6 @@
-#pragma once
-
 #include <SDL2/SDL_video.h>
 #include <SDL2/SDL_events.h>
-#include <GL/glew.h>
 #include <glm/glm.hpp>
-#include "Render.h"
 
 class IEventProcessor {
 public:
@@ -63,15 +59,7 @@ public:
 	MyWindow(MyWindow&&) noexcept = delete;
 	MyWindow(const MyWindow&) = delete;
 	MyWindow& operator=(const MyWindow&) = delete;
-	GLuint getRenderedTexture() const;
 	~MyWindow();
-
-
-	//framebuffer
-	void resizeFramebuffer(int width, int height);
-	void initFramebuffer(unsigned short width, unsigned short height);
-	void unbindFramebuffer();
-	void bindFramebuffer();
 
 	void open(const char* title, unsigned short width, unsigned short height);
 	void close();
@@ -79,13 +67,5 @@ public:
 
 	bool processEvents(IEventProcessor* event_processor = nullptr);
 	void swapBuffers() const;
-
-private:
-	GLuint framebuffer = 0;
-	GLuint renderedTexture = 0;
-	GLuint depthRenderbuffer = 0;
-
-	int _viewportWidth = 0;
-	int _viewportHeight = 0;
 
 };
