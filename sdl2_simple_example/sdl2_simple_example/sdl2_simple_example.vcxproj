@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -133,6 +133,7 @@
     <ClCompile Include="Components\Transform.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="MyWindow.cpp" />
     <ClCompile Include="Render.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="Components\Mesh.h" />
     <ClInclude Include="Components\Transform.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="MyWindow.h" />
     <ClInclude Include="Render.h" />
