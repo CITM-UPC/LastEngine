@@ -1,4 +1,5 @@
 ﻿#include <exception>
+#include <GL/glew.h>
 #include <SDL2/SDL_video.h>
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_opengl.h>
@@ -83,3 +84,4 @@ bool MyWindow::processEvents(IEventProcessor* event_processor) {
     }
     return true;
 }
+
